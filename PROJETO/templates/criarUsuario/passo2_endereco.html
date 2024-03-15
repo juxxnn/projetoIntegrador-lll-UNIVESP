@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Criar usuário ( Endereço ) > Passo 2 de 4</span>
+					<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<form action="{% url 'passo_dois' %}" method="post">
+							{% csrf_token %}
+							<div class="container">
+								<div class="box">
+									<span>Campos marcados com * são obrigatórios.</span>
+								</div>
+
+								<div class="box">
+									<span>&nbsp;</span>
+								</div>		
+
+								<div class="box">
+									<label for="cep">CEP*</label>
+									<input type="text" id="cep" name="cep" placeholder="CEP sem traço" title="Formato do CEP: XXXXXXXX" value="{{ request.session.cep|default:'' }}" required>
+								</div>
+								
+														
+								<div class="box">
+									<label for="endereco">Endereço*</label>
+									<input type="text" id="endereco" name="endereco" value="{{ request.session.endereco|default:'' }}" required>
+								</div>
+								
+								<div class="box">
+									<label for="endereco_numero">Número*</label>
+									<input type="text" id="endereco_numero" name="endereco_numero" value="{{ request.session.endereco_numero|default:'' }}" required>
+								</div>
+								
+								<div class="box">
+									<label for="complemento">Complemento</label>
+									<input type="text" id="complemento" name="complemento" value="{{ request.session.complemento|default:'' }}">
+								</div>
+								
+								<div class="box">
+									<label for="cidade">Cidade*</label>
+									<input type="text" id="cidade" name="cidade" value="{{ request.session.cidade|default:'' }}" required>		
+								</div>	
+
+								<div class="box">
+									<label for="uf">UF*</label>
+									<input type="text" id="uf" name="uf" value="{{ request.session.uf|default:'' }}" required>		
+								</div>
+
+								<div class="box">
+									<label for="telefone_residencial">Telefone residencial</label>
+									<input type="text" id="telefone_residencial" name="telefone_residencial" placeholder="(XX) XXXX-XXXX" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4}" title="Formato do Telefone residencial: (XX) XXXX-XXXX" value="{{ request.session.telefone_residencial|default:'' }}">
+								</div>
+								
+								<div class="box">
+									<label for="telefone_celular">Telefone celular</label>
+									<input type="text" id="telefone_celular" name="telefone_celular" placeholder="(XX) XXXXX-XXXX" pattern="\([0-9]{2}\)[\s][0-9]{5}-[0-9]{4}" title="Formato do Telefone celular: (XX) XXXXX-XXXX" value="{{ request.session.telefone_celular|default:'' }}">
+								</div>		
+						
+								<div class="box">
+									<label for="telefone_recado">Telefone (recado)</label>
+									<input type="text" id="telefone_recado" name="telefone_recado" placeholder="(XX) XXXX-XXXX ou (XX) XXXXX-XXXX " pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}" title="Este campo aceita telefone residencial (XX) XXXX-XXXX ou celular (XX) XXXXX-XXXX" value="{{ request.session.telefone_recado|default:'' }}">
+								</div>
+								
+								<div class="box">
+									<label for="nome_telefone_recado">Proprietário do Telefone (recado)</label>
+									<input type="text" id="nome_telefone_recado" name="nome_telefone_recado" value="{{ request.session.nome_telefone_recado|default:'' }}">
+								</div>									
+							</div>						  
+
+							<div class="container3">
+								<div class="box3">
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_um' %}" class="btn_color">Primeiro passo</a></button>
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_um' %}" class="btn_color">Passo anterior</a></button>																		  
+									<button class="botao_pequeno" type="submit">Próximo passo</button>
+								</div>
+							</div>
+						</form>
+					</span>					
+				</div>
+			</div>				
+		</div>
+
+		<script>
+			document.getElementById('cep').addEventListener('keypress', function(event) {
+				if (event.key === 'Enter') {
+					event.preventDefault();
+					buscarEndereco();
+				}
+			});
+
+			document.getElementById('cep').addEventListener('blur', function() {
+				buscarEndereco();
+			});
+			
+
+			function buscarEndereco() {
+				var cep = document.getElementById('cep').value;
+
+				if (!cep) {
+					return; // Não fazer a busca se o CEP está vazio
+				}
+
+				fetch(`https://viacep.com.br/ws/${cep}/json/`)
+					.then(response => response.json())
+					.then(data => {
+						if (!data.erro) {
+							document.getElementById('endereco').value = data.logradouro;
+							document.getElementById('cidade').value = data.localidade;
+							document.getElementById('uf').value = data.uf;
+							// Preencha outros campos de endereço conforme necessário
+						} else {
+							alert('CEP não encontrado');
+						}
+					})
+					.catch(error => {
+						console.error('Erro ao buscar endereço:', error);
+						alert('Erro ao buscar endereço');
+					});
+			}
+
+		</script>
+
+	</body>
+</html>

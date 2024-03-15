@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+		
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Criar usuário ( Dados pessoais ) > Passo 1 de 4</span>					
+					<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<form action="{% url 'passo_um' %}" method="post">
+							{% csrf_token %}
+							<div class="container">
+
+								<div class="box">
+									<span>Campos marcados com * são obrigatórios.</span>
+								</div>
+
+								<div class="box">
+									<span>
+										{% if messages %}
+											{% for message in messages %}
+											<span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+										  {% endfor %}
+									  {% endif %}
+									</span>
+								</div>
+
+								<div class="box">
+									<label for="numero_cadastro">Número de cadastro*</label>
+									<input type="text" id="numero_cadastro" name="numero_cadastro" value="{{ request.session.numero_cadastro|default:'' }}" required>
+								</div>
+								
+								<div class="box">
+									<label for="eol">EOL*</label>
+									<input type="text" id="eol" name="eol" value="{{ request.session.eol|default:'' }}" required>
+								</div>
+								
+								<div class="box">
+									<label for="nome_completo">Nome completo*</label>
+									<input type="text" id="nome_completo" name="nome_completo" value="{{ request.session.nome_completo|default:'' }}" required>
+								</div>
+						
+								<div class="box">
+									<label for="nome_social">Nome social (se tiver)</label>
+									<input type="text" id="nome_social" name="nome_social" value="{{ request.session.nome_social|default:'' }}">
+								</div>	
+							</div>		
+								
+							<div class="container">	
+								
+								<div class="box">
+									<label for="raca_cor">Raça/cor*</label>
+									<select id="raca_cor" name="raca_cor" required>
+										<option value="" {% if not request.session.raca_cor %}selected{% endif %}>Selecione raça/cor</option>
+										<option value="amarela" {% if request.session.raca_cor == 'amarela' %}selected{% endif %}>Amarela</option>
+										<option value="branca" {% if request.session.raca_cor == 'branca' %}selected{% endif %}>Branca</option>
+										<option value="indígena" {% if request.session.raca_cor == 'indígena' %}selected{% endif %}>Indígena</option>
+										<option value="parda" {% if request.session.raca_cor == 'parda' %}selected{% endif %}>Parda</option>
+										<option value="preta" {% if request.session.raca_cor == 'preta' %}selected{% endif %}>Preta</option>						  							  					 
+									</select>		
+								</div>
+							
+						
+								<div class="box">
+									<label for="data_nascimento">Data de nascimento*</label>
+									<input type="date" id="data_nascimento" name="data_nascimento" value="{{ request.session.data_nascimento }}" required>		
+								</div>	
+						
+								<div class="box">
+									<label for="idade">Idade*</label>
+									<input type="text" id="idade" name="idade" value="{{ request.session.idade|default:'' }}" required>		
+								</div>
+						
+								<div class="box">
+									<label for="certidao_nascimento">Certidão de nascimento*</label>
+									<input type="text" id="certidao_nascimento" name="certidao_nascimento" value="{{ request.session.certidao_nascimento|default:'' }}" required>		
+								</div>	
+								
+								<div class="container2">
+									<p>Certidão (modelo antigo)</p>
+									<div class="box2">
+										<label for="folha">Folha</label>
+										<input type="text" id="folha" name="folha" size="10" value="{{ request.session.folha|default:'' }}">
+										<label for="livro">Livro</label>
+										<input type="text" id="livro" name="livro" size="10" value="{{ request.session.livro|default:'' }}">
+										<label for="numero_certidao">N.o</label>
+										<input type="text" id="numero_certidao" name="numero_certidao" size="10" value="{{ request.session.numero_certidao|default:'' }}">		
+									</div>
+								</div>
+						
+								<div class="box">
+									<label for="rg">RG*</label>
+									<input type="text" id="rg" name="rg" value="{{ request.session.rg|default:'' }}" required>		
+								</div>
+						
+								<div class="box">
+									<label for="data_expedicao">Data de expedição*</label>
+									<input type="date" id="data_expedicao" name="data_expedicao" value="{{ request.session.data_expedicao }}" required>		
+								</div>	
+							</div>
+							
+							<div class="box">
+								<label for="necessidade_especial">É portador de alguma necessidade especial?*</label>
+								<div class="radio-container">
+									<label><input type="radio" name="necessidade_especial" value="1" {% if request.session.necessidade_especial != '' %}checked{% endif %}>Sim</label>
+									<label><input type="radio" name="necessidade_especial" value="" {% if request.session.necessidade_especial == '' %}checked{% endif %}>Não</label>
+								</div>
+								<textarea id="necessidade_especial" name="necessidade_especial" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.necessidade_especial == '' %}disabled{% endif %}>{{ request.session.necessidade_especial }}</textarea>		
+							</div>	
+							
+							<div class="box">
+								<label for="nome_completo_responsavel">Nome completo do responsável<br>(apenas para usuários menores de 18 anos)</label>
+								<input type="text" id="nome_completo_responsavel" name="nome_completo_responsavel" value="{{ request.session.nome_completo_responsavel|default:'' }}">
+							</div>
+						  
+							<div class="container3">
+								<div class="box3">
+									<button class="botao_pequeno" type="submit">Próximo passo</button>
+								</div>
+							</div>
+						</form>
+					</span>					
+				</div>
+			</div>				
+		</div>
+		<script>
+			const radioButtons = document.querySelectorAll('.area input[type="radio"]');		
+			radioButtons.forEach(radioButton => {
+				radioButton.addEventListener('change', () => {
+					const textareaId = radioButton.getAttribute('name');
+					const textarea = document.getElementById(textareaId);
+					textarea.disabled = (radioButton.value === '');
+					textarea.value = ''; // Apaga o conteúdo do campo textarea
+			  	});
+			});
+		</script>		
+	</body>
+</html>

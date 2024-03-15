@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+		
+
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Criar usuário ( Enviar documentos ) > Passo 4 de 4</span>
+					<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<form action="{% url 'passo_quatro' %}" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="container">
+								<table class="cor_linhas_alternadas">
+									<tr>
+										<th>DOCUMENTOS</th>
+										<th>AÇÕES
+											<span class="tooltip" data-tooltip="A imagem deve estar nos formatos jpg, jpeg ou png e ter no máximo 1MB. Os documentos devem estar no formato pdf e ter no máximo 3MB.">?</span>											
+										</th>
+									</tr>
+									<tr>
+										<td>Foto 3x4 colorida (atual)</td>
+										<td>
+											<button type="button" class="btn" id="btn_foto3x4">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+											</button>
+											<input type="file" name="foto3x4" id="foto3x4" style="display: none;">
+										</td>
+									</tr>
+									<tr>
+										<td>RG (usuário)</td>
+										<td>
+											<button type="button" class="btn" id="btn_rg_usuario">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+												<input type="file" name="rg_usuario" id="rg_usuario" style="display: none;">
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Certidão de nascimento (usuário)</td>
+										<td>
+											<button type="button" class="btn" id="btn_cert_nasc_usuario">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+											</button>
+											<input type="file" name="cert_nasc_usuario" id="cert_nasc_usuario" style="display: none;">
+										</td>
+									</tr>
+									<tr>
+										<td>RG (responsável)</td>
+										<td>
+											<button type="button" class="btn" id="btn_rg_responsavel">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+												<input type="file" name="rg_responsavel" id="rg_responsavel" style="display: none;">
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Comprovante de residência</td>
+										<td>
+											<button type="button" class="btn" id="btn_comprov_residencia">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+												<input type="file" name="comprov_residencia" id="comprov_residencia" style="display: none;">
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Autorização assinada</td>
+										<td>
+											<button type="button" class="btn" id="btn_autorizacao">
+												<span class="btn_icone"><i class="fa-solid fa-arrow-up-from-bracket" style="color: #ffffff;"></i></span>
+												<span class="btn_texto">enviar documento</span>
+												<input type="file" name="autorizacao" id="autorizacao" style="display: none;">
+											</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<div>
+								<!-- Mostrar erros de validação para a imagem -->
+								{% if form.errors.foto3x4 %}
+									<div class="error">{{ form.errors.foto3x4 }}</div>
+								{% endif %}
+
+								<!-- Mostrar erros de validação para os pdfs -->
+								{% if form.errors.rg_usuario %}
+									<div class="error">{{ form.errors.rg_usuario }}</div>
+								{% endif %}
+								{% if form.errors.cert_nasc_usuario %}
+									<div class="error">{{ form.errors.cert_nasc_usuario }}</div>
+								{% endif %}
+								{% if form.errors.errors.rg_responsavel %}
+									<div class="error">{{ form.errors.rg_responsavel }}</div>
+								{% endif %}
+								{% if form.errors.comprov_residencia %}
+									<div class="error">{{ form.errors.comprov_residencia }}</div>
+								{% endif %}
+								{% if form.errors.autorizacao %}
+									<div class="error">{{ form.errors.autorizacao }}</div>
+								{% endif %}
+							</div>
+
+							<div class="container3">
+								<div class="box3">
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_um' %}" class="btn_color">Primeiro passo</a></button>
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_tres' %}" class="btn_color">Passo anterior</a></button>																		  
+									<button class="botao_pequeno" type="submit">Gravar</button>
+								</div>										
+							</div>
+						</form>
+					</span>					
+				</div>
+			</div>				
+		</div>
+		<script>
+			document.getElementById("btn_foto3x4").addEventListener("click", function() {
+			  document.getElementById("foto3x4").click();
+			});
+		  
+			document.getElementById("btn_rg_usuario").addEventListener("click", function() {
+			  document.getElementById("rg_usuario").click();
+			});
+		  
+			document.getElementById("btn_cert_nasc_usuario").addEventListener("click", function() {
+			  document.getElementById("cert_nasc_usuario").click();
+			});
+		  
+			document.getElementById("btn_rg_responsavel").addEventListener("click", function() {
+			  document.getElementById("rg_responsavel").click();
+			});
+		  
+			document.getElementById("btn_comprov_residencia").addEventListener("click", function() {
+			  document.getElementById("comprov_residencia").click();
+			});
+		  
+			document.getElementById("btn_autorizacao").addEventListener("click", function() {
+			  document.getElementById("autorizacao").click();
+			});
+		  </script>		
+	</body>
+</html>

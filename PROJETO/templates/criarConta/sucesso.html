@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	
+	<body>
+
+		<div vw class="enabled">
+			<div vw-access-button class="active"></div>
+			<div vw-plugin-wrapper>
+			  <div class="vw-plugin-top-wrapper"></div>
+			</div>
+		</div>
+		<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+		<script>
+			new window.VLibras.Widget('https://vlibras.gov.br/app');
+		</script>
+
+		
+		<div id="principal-div">
+			<div id="principal-logo-div">
+				<img src="{% static '/assets/img/logo_ceu_redondo.png' %}">
+			</div>
+			
+			<div id="principal-login-div">
+				<p class="fonte_media"><b>A sua conta foi criado com sucesso!</b></p>
+
+				<p class="fonte_media">Agora, é só fazer o <a href="{% url 'login_funcionario' %}"><b>Login</b>!</a></p>
+
+			</div>
+
+		</div>	
+	</body>
+</html>

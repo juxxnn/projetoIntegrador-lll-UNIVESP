@@ -1,0 +1,73 @@
+{% load static %}
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=poppins">	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+		<style>
+			* {
+				font-family:poppins;
+				color:#25476a;
+				box-sizing:border-box;
+				margin: auto;
+			}
+
+			.fonte_grande {
+				font-size:24px;
+				font-weight:bold;
+			}
+
+			.fonte_media {
+				font-size:16px
+			}
+
+			p {
+				margin:0 0 0.75em 0;
+			}
+		</style>
+	</head>
+	<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+		<table width="1346" height="411" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td colspan="4"><img src="{% static '/assets/img/credencial01.png' %}" width="650" height="119"></td>
+				<td rowspan="3"><img src="{% static '/assets/img/credencial02.png' %}" width="696" height="411"></td>
+			</tr>
+			<tr>
+				<td><img src="{% static '/assets/img/credencial03.png' %}" width="34" height="222"></td>
+				<td width="167" height="222" align="center" valign="middle" bgcolor="#FFFFFF">
+					<img src="{{ MEDIA_URL }}{{ usuario.foto3x4 }}" width="167" height="222">
+				</td>
+				<td><img src="{% static '/assets/img/credencial04.png' %}" width="22" height="222"></td>
+				<td width="427" height="222" align="left" valign="top" bgcolor="#FFFFFF">
+					{% if usuario.nome_social %}
+					<p class="fonte_grande">{{ usuario.nome_social }}</p>
+					{% else %}
+					<p class="fonte_grande">{{ usuario.nome_completo }}</p>
+					{% endif %}
+					<span class="fonte_media">
+					<p><b>RG: </b>{{ usuario.rg }}</p>
+					<p><b>EOL: </b>{{ usuario.eol }}</p>
+					<p><b>Data nasc.: </b>{{ usuario.data_nascimento }}</p>
+					<p><b>Tel.: </b>
+						{% if usuario.telefone_celular %}
+							{{ usuario.telefone_celular }}
+						{% elif usuario.telefone_residencial %}
+							{{ usuario.telefone_residencial }}
+						{% else %}
+							{{ usuario.telefone_recado }}
+						{% endif %}
+					</p>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><img src="{% static '/assets/img/credencial05.png' %}" width="650" height="70"></td>
+			</tr>
+		</table>
+	</body>
+</html>

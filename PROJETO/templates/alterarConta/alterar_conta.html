@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Alterar conta</span>
+					<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>						
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<form method="POST" action="{% url 'salvar_alteracoes' funcionario.idfunc %}">
+							{% csrf_token %}
+							<div class="container">
+								<div class="box4">
+									<label for="registro_funcional" class="fonte_media">Registro funcional</label>						
+									<input type="text" id="registro_funcional" name="registro_funcional" maxlength="10" pattern="^[0-9]{1,10}$" value="{{ funcionario.registro_funcional }}" disabled>						
+								</div>
+
+								<div class="box4">
+									<span>&nbsp;</span>									
+								</div>
+								
+								<div class="box4">
+									<label for="nome_completo" class="fonte_media">Nome completo</label>
+									<input type="text" id="nome_completo" name="nome_completo" value="{{ funcionario.nome_completo }}" maxlength="40" disabled>						
+								</div>						
+								
+								<div class="box4">
+									<label for="email" class="fonte_media">Endereço de email</label>
+									<input type="email" id="email" name="email" value="{{ funcionario.email }}" maxlength="30" disabled>
+								</div>									
+								
+								<div class="box4">
+									<label for="senha1" class="fonte_media">Nova senha</label>
+									<span class="tooltip" data-tooltip="A senha deve conter no mínimo 8 e no máximo 15 caracteres. Deve incluir pelo menos uma letra maiúscula, uma letra minúscula, um número e um dos seguintes caracteres especiais: @ $ ! % * ? &">?</span>
+									<input type="password" id="senha1" name="senha1" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$" required>
+								</div>								
+
+								<div class="box4">									
+									<label for="senha2" class="fonte_media">Repita a nova senha</label>
+									<input type="password" id="senha2" name="senha2" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$" required>
+								</div>					  
+
+							<div class="container3">
+								<div class="box4">
+									<input type="submit" value="Alterar conta" class="botao_grande">
+								</div>
+							</div>
+						</form>
+					</span>	
+					{% if messages %}
+						{% for message in messages %}
+						<span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+						{% endfor %}
+					{% endif %}										
+				</div>
+			</div>				
+		</div>
+	</body>
+</html>
