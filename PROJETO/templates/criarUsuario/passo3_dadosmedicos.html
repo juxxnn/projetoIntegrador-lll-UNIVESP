@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Criar usuário ( Dados médicos ) > Passo 3 de 4</span>
+					<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<form action="{% url 'passo_tres' %}" method="post">
+							{% csrf_token %}
+							<div class="box">
+								<span>Campos marcados com * são obrigatórios.</span>
+							</div>
+
+							<div class="box">
+								<label for="tipo_sanguineo">Tipo sanguíneo*</label>
+								<select id="tipo_sanguineo" name="tipo_sanguineo" required>
+									<option value="" {% if not request.session.tipo_sanguineo %}selected{% endif %}>Selecione o tipo sanguíneo</option>									
+									<option value="A+" {% if request.session.tipo_sanguineo == 'A+' %}selected{% endif %}>A+</option>
+									<option value="A-" {% if request.session.tipo_sanguineo == 'A-' %}selected{% endif %}>A-</option>
+									<option value="B+" {% if request.session.tipo_sanguineo == 'B+' %}selected{% endif %}>B+</option>
+									<option value="B-" {% if request.session.tipo_sanguineo == 'B-' %}selected{% endif %}>B-</option>									
+									<option value="AB+" {% if request.session.tipo_sanguineo == 'AB+' %}selected{% endif %}>AB+</option>
+									<option value="AB-" {% if request.session.tipo_sanguineo == 'AB-' %}selected{% endif %}>AB-</option>
+									<option value="O+" {% if request.session.tipo_sanguineo == 'O+' %}selected{% endif %}>O+</option>
+									<option value="O-" {% if request.session.tipo_sanguineo == 'O-' %}selected{% endif %}>O-</option>									
+									<option value="Não sei." {% if request.session.tipo_sanguineo == 'Não sei.' %}selected{% endif %}>Não sei.</option>
+								</select>
+							</div>
+
+							<div class="container">
+								<div class="box">
+									<label for="convenio">Possui convênio médico?*</label>
+									<div class="radio-container">
+										<label><input type="radio" name="convenio" value="1" {% if request.session.convenio != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="convenio" value="" {% if request.session.convenio == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="convenio" name="convenio" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.convenio == '' %}disabled{% endif %}>{{ request.session.convenio }}</textarea>
+								</div>
+								
+								<div class="box">
+									<label for="alergias">Possui alergias?*</label>
+									<div class="radio-container">
+										<label><input type="radio" name="alergias" value="1" {% if request.session.alergias != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="alergias" value="" {% if request.session.alergias == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="alergias" name="alergias" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.alergias == '' %}disabled{% endif %}>{{ request.session.alergias }}</textarea>
+								</div>		
+								
+								<div class="box">
+									<label for="problemas_saude">Possui limitações ou problemas de saúde?*</label>			
+									<div class="radio-container">
+										<label><input type="radio" name="problemas_saude" value="1" {% if request.session.problemas_saude != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="problemas_saude" value="" {% if request.session.problemas_saude == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="problemas_saude" name="problemas_saude" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.problemas_saude == '' %}disabled{% endif %}>{{ request.session.problemas_saude }}</textarea>			
+								</div>		
+							
+								<div class="box">
+									<label for="tratamento_medico">Faz tratamento médico ou usa medicamentos?*</label>
+									<div class="radio-container">
+										<label><input type="radio" name="tratamento_medico" value="1" {% if request.session.tratamento_medico != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="tratamento_medico" value="" {% if request.session.tratamento_medico == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="tratamento_medico" name="tratamento_medico" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.tratamento_medico == '' %}disabled{% endif %}>{{ request.session.tratamento_medico }}</textarea>
+								</div>
+						
+								<div class="box">
+									<label for="restricao_ativfisica">Possui restrição à prática de atividade física?*</label>
+									<div class="radio-container">
+										<label><input type="radio" name="restricao_ativfisica" value="1" {% if request.session.restricao_ativfisica != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="restricao_ativfisica" value="" {% if request.session.restricao_ativfisica == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="restricao_ativfisica" name="restricao_ativfisica" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.restricao_ativfisica == '' %}disabled{% endif %}>{{ request.session.restricao_ativfisica }}</textarea>
+								</div>
+						
+								<div class="box">
+									<label for="lesao_fratura_cirurgia">Já sofreu alguma lesão/fratura/cirurgia?*</label>
+									<div class="radio-container">
+										<label><input type="radio" name="lesao_fratura_cirurgia" value="1" {% if request.session.lesao_fratura_cirurgia != '' %}checked{% endif %}>Sim</label>
+										<label><input type="radio" name="lesao_fratura_cirurgia" value="" {% if request.session.lesao_fratura_cirurgia == '' %}checked{% endif %}>Não</label>
+									</div>
+									<textarea id="lesao_fratura_cirurgia" name="lesao_fratura_cirurgia" rows="5" maxlength="400" style="resize: none" placeholder="Preencha este campo se a resposta for 'Sim'." {% if request.session.lesao_fratura_cirurgia == '' %}disabled{% endif %}>{{ request.session.lesao_fratura_cirurgia }}</textarea>
+								</div>					
+							</div>							
+
+							<div class="container3">
+								<div class="box3">
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_um' %}" class="btn_color">Primeiro passo</a></button>			
+									<button class="botao_pequeno" type="button"><a href="{% url 'passo_dois' %}" class="btn_color">Passo anterior</a></button>															  
+									<button class="botao_pequeno" type="submit">Próximo passo</button>
+								</div>
+							</div>
+						</form>
+					</span>					
+				</div>
+			</div>				
+		</div>
+
+		<script>
+			const radioButtons = document.querySelectorAll('.area input[type="radio"]');		
+			radioButtons.forEach(radioButton => {
+				radioButton.addEventListener('change', () => {
+					const textareaId = radioButton.getAttribute('name');
+					const textarea = document.getElementById(textareaId);
+					textarea.disabled = (radioButton.value === '');
+					textarea.value = ''; // Apaga o conteúdo do campo textarea
+			  	});
+			});
+		</script>	
+			
+	</body>
+</html>

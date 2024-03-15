@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+
+	
+	<div vw class="enabled">
+		<div vw-access-button class="active"></div>
+		<div vw-plugin-wrapper>
+		  <div class="vw-plugin-top-wrapper"></div>
+		</div>
+	</div>
+	<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+	<script>
+		new window.VLibras.Widget('https://vlibras.gov.br/app');
+	</script>
+	
+	<body>
+		<div id="principal-div">
+			<div id="principal-logo-div">
+				<img src="{% static '/assets/img/logo_ceu_redondo.png' %}">
+			</div>
+			
+			<div id="principal-login-div">
+				{% if messages %}
+					{% for message in messages %}
+						<span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+				  	{% endfor %}
+			  	{% endif %}				
+				<!-- Formulário: Crie sua conta -->
+				<form action="{% url 'cadastro_funcionario' %}" method="POST">
+					{% csrf_token %}
+					<fieldset>
+						<legend class="fonte_grande">Crie sua conta</legend>
+						<p class="fonte_pequena">Preencha os campos abaixo e crie a sua conta.</p>
+						
+						<label for="registro_funcional" class="fonte_media">Registro funcional</label>
+						<span class="tooltip" data-tooltip="O Registro Funcional deve conter apenas números.">?</span>						
+						<input type="text" id="registro_funcional" name="registro_funcional" maxlength="10" pattern="^[0-9]{1,10}$" required>						
+						
+						<label for="nome_completo" class="fonte_media">Nome completo</label>
+						<input type="text" id="nome_completo" name="nome_completo" maxlength="100" required>						
+						
+						<label for="email" class="fonte_media">Endereço de email</label>
+						<input type="email" id="email" name="email" maxlength="30" required>
+
+						<label for="senha1" class="fonte_media">Senha</label>
+						<span class="tooltip" data-tooltip="A senha deve conter no mínimo 8 e no máximo 15 caracteres. Deve incluir pelo menos uma letra maiúscula, uma letra minúscula, um número e um dos seguintes caracteres especiais: @ $ ! % * ? &">?</span>
+						<input type="password" id="senha1" name="senha1" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$" required>
+
+						<label for="senha2" class="fonte_media">Repita a senha</label>
+						<input type="password" id="senha2" name="senha2" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$" required>						
+
+						<input type="submit" value="Criar conta" class="botao_grande">
+					</fieldset>
+				</form>
+				<p class="fonte_media">Já tem uma conta? <a href="{% url 'login_funcionario' %}"><b>Login</b></a></p>
+
+			</div>
+
+		</div>	
+	</body>
+</html>

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<div vw class="enabled">
+			<div vw-access-button class="active"></div>
+			<div vw-plugin-wrapper>
+			  <div class="vw-plugin-top-wrapper"></div>
+			</div>
+		</div>
+		<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+		<script>
+			new window.VLibras.Widget('https://vlibras.gov.br/app');
+		</script>
+		
+
+		<div id="wrapper-div">
+
+			<div id="topo-div">
+				<!-- Logo -->
+				<div id="topo-logo-div">
+					<img src="{% static '/assets/img/logo_ceu_retangular.png' %}">
+				</div>
+				<div id="topo-config-div">
+					<span class="baixo-esq"><img src="{% static '/assets/img/icone_home.png' %}">&nbsp;/ Buscar usuário</span>
+		  			<span class="alto-dir">
+						<a href="{% url 'alterar_cadastro' func_id=request.session.sessao_func_id %}"><img src="{% static '/assets/img/icone_config.png' %}"></a>
+						<a href="{% url 'sair' %}"><img src="{% static '/assets/img/icone_sair.png' %}"></a>
+					</span>
+				</div>				
+			</div>		
+
+			<div id="main-div">
+				<!-- Menu -->
+				<div id="main-menu-div">					
+					<nav>
+						<a href="{% url 'criar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_criar_usuario.png' %}"></a>
+						<a href="{% url 'buscar_usuario' %}" class="menu"><img src="{% static '/assets/img/btn_buscar_usuario.png' %}"></a>
+					</nav>
+				</div>			
+				
+				<!-- Conteúdo da página -->
+				<div id="main-area-div">
+					<span class="area">
+						<div class="container">
+							<form action="{% url 'pesquisa' %}" method="get" id="form-busca">
+								{% csrf_token %}								
+								<input type="search" placeholder="digite o EOL ou o nome do usuário" size="55" id="consulta" name="consulta" value="{{ request.session.input_value|default:'' }}" class="busca-input">								
+							</form>
+
+							<table class="cor_linhas_alternadas">
+								<tr>
+									<th style="width:15%;">EOL</th>
+									<th style="width:35%;">NOME COMPLETO</th>
+									<th>AÇÕES</th>									
+								</tr>
+
+								{% for Usuario in results %}
+								<tr>
+									<td>{{ Usuario.eol }}</td>
+									<td>{{ Usuario.nome_completo }}</td>
+									<td>
+										<div class="botoes">
+											<a href="{% url 'gera_credencial' Usuario.id_usuario %}" target="_blank">											
+												<button type="button" class="btn">
+													<span class="btn_icone"><i class="fa-solid fa-print" style="color: #ffffff;"></i></span>
+													<span class="btn_texto">imprimir credencial</span>
+												</button>
+											</a>										
+											<a href="{% url 'editar_usuario' Usuario.id_usuario %}">
+												<button type="button" class="btn">
+													<span class="btn_icone"><i class="fa-solid fa-pen" style="color: #ffffff;"></i></span>
+													<span class="btn_texto">editar usuário</span>
+												</button>
+											</a>
+											<a href="{% url 'exclui_usuario' Usuario.id_usuario %}">											
+												<button type="button" class="btn">
+													<span class="btn_icone"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i></span>
+													<span class="btn_texto">excluir usuário</span>
+												</button>
+											</a>
+										</div>
+									</td>
+								</tr>
+								{% empty %}
+								<tr>
+									<td colspan="3">Digite o nome ou o EOL para efetuar a busca</td>
+								</tr>
+								{% endfor %}
+								
+								{% if messages %}
+								<tr>
+									<td colspan="3">
+									{% for message in messages %}
+            							<span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+									{% endfor %}
+									</td>
+								</tr>
+								{% endif %}
+								
+							</table>
+						</div>
+					</span>					
+				</div>
+			</div>				
+		</div>
+		<script>
+		document.getElementById("form-busca").addEventListener("keyup", function(event) {
+			if (event.key === "Enter") {
+			  event.preventDefault();
+			  var form = document.getElementById("form-busca");
+			  var buscar = form.elements.consulta.value;
+			  window.location.href = "/?buscar" + encodeURIComponent(buscar);
+			}
+		});
+		</script>		
+	</body>
+</html>

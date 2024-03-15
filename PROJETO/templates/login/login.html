@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>CEU - Centro Unificado Educacional Parque Bristol</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+		<div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+		
+		<div id="principal-div">
+			<div id="principal-logo-div">
+				<img src="{% static '/assets/img/logo_ceu_redondo.png' %}">
+			</div>
+			
+			<div id="principal-login-div">				
+				{% if messages %}
+					{% for message in messages %}
+					<span {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+					{% endfor %}
+			  	{% endif %}				
+				<!-- Formulário: Login -->
+				<form action="" method="post">
+					{% csrf_token %}
+					<fieldset>
+						<legend class="fonte_grande">Login</legend>
+						<p class="fonte_pequena">Preencha os campos abaixo e acesse a sua conta.</p>
+						
+						<label for="email" class="fonte_media">Endereço de email</label>
+						<input type="email" id="email" name="email" maxlength="30" required>
+
+						<label for="senha" class="fonte_media">Senha</label>
+						<span class="tooltip" data-tooltip="A senha deve conter no mínimo 8 e no máximo 15 caracteres. Deve incluir pelo menos uma letra maiúscula, uma letra minúscula, um número e um dos seguintes caracteres especiais: @ $ ! % * ? &">?</span>						
+						<input type="password" id="senha" name="senha" maxlength="15" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$" required>
+
+						<input type="submit" value="Entrar" class="botao_grande">
+					</fieldset>
+				</form>
+				<p class="fonte_media">Não cadastrado? <a href="{% url 'cadastro_funcionario' %}"><b>Crie sua conta</b></a></p>
+
+			</div>
+
+		</div>	
+	</body>
+</html>
