@@ -55,7 +55,7 @@ def editarUsuario(request, usuario_id):
     #Lista de nomes de atributos para atribuir às variáveis ​​de sessão
     atributos = ['id_usuario', 'numero_cadastro', 'eol', 'nome_completo', 'nome_social', 'raca_cor',
                  'cidade', 'uf', 'idade', 'certidao_nascimento', 'folha', 'livro', 'numero_certidao',
-                 'rg', 'necessidade_especial', 'nome_completo_responsavel', 'endereco',
+                 'rg', 'e_mail', 'necessidade_especial', 'nome_completo_responsavel', 'endereco',
                  'endereco_numero', 'complemento', 'cep', 'telefone_residencial', 'telefone_celular',
                  'telefone_recado', 'nome_telefone_recado', 'tipo_sanguineo', 'convenio', 'alergias', 
                  'problemas_saude','tratamento_medico', 'restricao_ativfisica', 'lesao_fratura_cirurgia'
@@ -102,6 +102,7 @@ def passo1(request):
         data_expedicao_formatado = data_expedicao.strftime('%Y-%m-%d')  
         request.session['data_expedicao'] = data_expedicao_formatado # Atribuir a data formatada à variável de sessão
 
+        request.session['e_mail'] = form_passo1['e_mail']
         request.session['necessidade_especial'] = form_passo1['necessidade_especial']                        
         request.session['nome_completo_responsavel'] = form_passo1['nome_completo_responsavel']
 
@@ -204,6 +205,7 @@ def passo4(request):
                 numero_certidao = request.session['numero_certidao'],
                 rg = request.session['rg'],
                 data_expedicao = request.session['data_expedicao'],
+                e_mail = request.session['e_mail'],
                 necessidade_especial = request.session['necessidade_especial'],
                 nome_completo_responsavel = request.session['nome_completo_responsavel'],
                 #----- Passo 2 -----# 
@@ -231,6 +233,9 @@ def passo4(request):
                 comprov_residencia = request.session['comprov_residencia'],
                 autorizacao = request.session['autorizacao']
             )
+
+            email_usuario = request.session.get('e_mail')
+            enviar_email_confirmacao(email_usuario)
 
             # Decidindo se atualizo ou insiro os dados do usuário em razão da presença do id_usuario nas variáveis de sessão
             if 'id_usuario' in request.session:

@@ -89,7 +89,7 @@
 								<div class="box">
 									<label for="nome_social">Nome social (se tiver)</label>
 									<input type="text" id="nome_social" name="nome_social" value="{{ request.session.nome_social|default:'' }}">
-								</div>	
+								</div>
 							</div>		
 								
 							<div class="container">	
@@ -142,7 +142,12 @@
 								<div class="box">
 									<label for="data_expedicao">Data de expedição*</label>
 									<input type="date" id="data_expedicao" name="data_expedicao" value="{{ request.session.data_expedicao }}" required>		
-								</div>	
+								</div>
+								
+								<div class="box">
+									<label for="e_mail">E-mail*</label>
+									<input type="text" id="e_mail" name="e_mail" value="{{ request.session.e_mail|default:'' }}" required>
+								</div>
 							</div>
 							
 							<div class="box">

@@ -32,6 +32,7 @@ class Migration(migrations.Migration):
                 ('numero_certidao', models.IntegerField(blank=True, null=True)),
                 ('rg', models.CharField(blank=True, max_length=27, null=True)),
                 ('data_expedicao', models.DateField(blank=True, null=True)),
+                ('e_mail', models.CharField(blank=True, max_length=100, null=True)),
                 ('necessidade_especial', models.CharField(blank=True, max_length=255, null=True)),
                 ('nome_completo_responsavel', models.CharField(blank=True, max_length=100, null=True)),
                 ('endereco', models.CharField(blank=True, max_length=100, null=True)),
