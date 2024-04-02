@@ -11,6 +11,8 @@ from django.utils import timezone
 from django.http import JsonResponse
 from datetime import datetime    
 from django.core.exceptions import ValidationError
+from .utils import enviar_email_confirmacao
+
 
 
 def editarUsuario(request, usuario_id):  
