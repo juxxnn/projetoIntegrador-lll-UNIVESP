@@ -17,7 +17,7 @@ def enviar_email_confirmacao(e_mail):
             body {{
                 font-family: Arial, sans-serif;
                 font-size: 14px;
-                color: #333;
+                color: black;
             }}
             .container {{
                 max-width: 600px;
