@@ -14,7 +14,7 @@ Este projeto integrador foi desenvolvido como parte do curso da UNIVESP e tem co
 <table>
 <tr>
 <td align="center"><a href="https://github.com/"><img style="border-radius: 50%;" src="https://github.com/.png" width="100px;" alt="Carla Bianca Santos Latorre"/><br /><sub><b>Carla Bianca Santos Latorre</b></sub></a><br/></td>
-<td align="center"><a href="https://github.com/"><img style="border-radius: 50%;" src="https://github.com/.png" width="100px;" alt="Denise Luri Onari,"/><br /><sub><b>Denise Luri Onari,</b></sub></a><br/></td> 
+<td align="center"><a href="https://github.com/DeniseLuri"><img style="border-radius: 50%;" src="https://github.com/DeniseLuri.png" width="100px;" alt="Denise Luri Onari,"/><br /><sub><b>Denise Luri Onari,</b></sub></a><br/></td> 
 <td align="center"><a href="https://github.com/"><img style="border-radius: 50%;" src="https://github.com/.png" width="100px;" alt="Evelin Priscila Une Santos"/><br /><sub><b>Evelin Priscila Une Santos</b></sub></a><br/></td> 
 <td align="center"><a href="https://github.com/"><img style="border-radius: 50%;" src="https://github.com/.png" width="100px;" alt="Felipe Freire Silva"/><br /><sub><b>Felipe Freire Silva/b></sub></a><br/></td>
  <td align="center"><a href="https://github.com/"><img style="border-radius: 50%;" src="https://github.com/.png" width="100px;" alt="Henrique Seiki Fukuzaki,"/><br /><sub><b>Henrique Seiki Fukuzaki,</b></sub></a><br/></td>
