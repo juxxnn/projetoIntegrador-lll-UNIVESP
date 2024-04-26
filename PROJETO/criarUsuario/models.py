@@ -20,6 +20,7 @@ class Usuario(models.Model):
     numero_certidao = models.CharField(max_length=25, null=True, blank=True)
     rg = models.CharField(max_length=27, null=True, blank=True)
     data_expedicao = models.DateField(null=True, blank=True)
+    e_mail = models.CharField(max_length=100, null=True, blank=True)
     necessidade_especial =  models.CharField(max_length=255, null=True, blank=True)
     nome_completo_responsavel = models.CharField(max_length=100, null=True, blank=True)
     # Passo 2

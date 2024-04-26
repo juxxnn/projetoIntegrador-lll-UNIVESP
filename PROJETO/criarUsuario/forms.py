@@ -57,6 +57,7 @@ class CadUsuarioForm(forms.ModelForm):
             'numero_certidao',
             'rg',
             'data_expedicao',
+            'e_mail',
             'necessidade_especial',
             'nome_completo_responsavel',
             'endereco',
