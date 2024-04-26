@@ -1,0 +1,34 @@
+{% load static %}
+<html>
+  <head>
+    <title>CEU - Centro Unificado Educacional Parque Bristol</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="{% static '/styles/ceu_estilo.css' %}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  </head>
+    <body>
+
+      <div vw class="enabled">
+              <div vw-access-button class="active"></div>
+              <div vw-plugin-wrapper>
+                <div class="vw-plugin-top-wrapper"></div>
+              </div>
+          </div>
+          <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+          <script>
+              new window.VLibras.Widget('https://vlibras.gov.br/app');
+          </script>
+      
+      <div id="principal-div">
+        <div id="principal-logo-div">
+          <img src="{% static '/assets/img/logo_ceu_redondo.png' %}">
+        </div>	
+            <iframe width="800" height="822" src="https://lookerstudio.google.com/embed/reporting/b6634731-e168-494a-887b-004fa43b9489/page/PPCwD" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+
+    </body>
+
+
+</html>

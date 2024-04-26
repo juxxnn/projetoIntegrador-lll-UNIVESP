@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path, os
 from dotenv import load_dotenv
+from .config import GOOGLE_API_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 import os
 
 load_dotenv()
@@ -50,7 +51,12 @@ INSTALLED_APPS = [
     'buscarUsuario',
     'criarUsuario',
     'alterarConta',
-    'TestesPI'
+    'TestesPI',
+    'relatorios',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -61,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -162,3 +169,18 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 EMAIL_USE_TLS = True
+
+
+#CHAVE API OAUTH GOOGLE#
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': GOOGLE_CLIENT_ID ,
+            'secret': GOOGLE_CLIENT_SECRET,
+            'key': ''
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = 'https://lookerstudio.google.com/embed/reporting/b6634731-e168-494a-887b-004fa43b9489/page/PPCwD'
