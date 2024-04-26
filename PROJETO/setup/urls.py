@@ -25,5 +25,8 @@ urlpatterns = [
     path('', include('criarConta.urls')),
     path('', include('buscarUsuario.urls')),
 	path('', include('criarUsuario.urls')),
-	path('', include('alterarConta.urls')),    
+	path('', include('alterarConta.urls')), 
+    path('', include('relatorios.urls')),
+    path('', include('allauth.urls')),   
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
