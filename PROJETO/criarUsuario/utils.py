@@ -4,7 +4,7 @@ from django.conf import settings
 def enviar_email_confirmacao(e_mail):
 
     # Link do formulário do Google Forms
-    form_url = 'https://forms.gle/oKLRNdxMHw2wVE4v7'
+    form_url = 'https://forms.gle/m7He1h7grLyM9fYcA'
 
     # Lista de destinatários do e-mail
     recipient_list = [e_mail]
